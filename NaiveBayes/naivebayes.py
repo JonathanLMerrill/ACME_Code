@@ -45,41 +45,6 @@ class NaiveBayesFilter(ClassifierMixin):
         #add the columns of labels from the y train
         gf['labels'] = y
         self.data = gf
-        """the code below is the code to change it into the desired format. I tried implimenting 
-        this and it literally broke every other element of my code. I spent 2 hours trying 
-        to get the other parts to work with this new method but nothing would work unless
-        i did this problem from scratch. If this had been the original instruciton, it would
-        have been easy and would have made all the code better. The way the lab introduced 
-        this made it much harder and not worth the time it takes to impliment. Please
-        be merciful, i'm trying to follow instrucitons the best i can"""
-        #this lab sucked bad. I literally spent 8+ hours on this. 
-# =============================================================================
-#         hammask = []
-#         spammask = []
-#         for i in range(len(self.data)):
-#             if self.data['labels'].values[i] == 'ham':
-#                 hammask.append(True)
-#                 spammask.append(False)
-#             else:
-#                 hammask.append(False)
-#                 spammask.append(True)
-#                 
-#         ham = []
-#         spam = []
-#         for i in unique:
-#             ham.append((self.data[i].values[hammask].sum()))
-#             spam.append((self.data[i].values[spammask].sum()))
-#         
-#         
-#         A = []
-#         A.append(ham)
-#         A.append(spam)
-#         A = np.array(A)
-#         ff = pd.DataFrame(A, index = ['ham','spam'], columns = unique)
-#         ff['labels'] = y
-#         self.data = ff
-# =============================================================================
-        #raise NotImplementedError('Problem 1 incomplete')
         
     def predict_proba(self, X):
         '''
@@ -139,7 +104,6 @@ class NaiveBayesFilter(ClassifierMixin):
         x = x.T
         #return said array
         return x
-        #raise NotImplementedError('Problem 2 incomplete')
 
     def predict(self, X):
         '''
@@ -163,7 +127,6 @@ class NaiveBayesFilter(ClassifierMixin):
                 label.append('spam')
         #return said list
         return label
-        #raise NotImplementedError('Problem 3 incomplete')
         
     def predict_log_proba(self, X):
         '''
@@ -222,7 +185,6 @@ class NaiveBayesFilter(ClassifierMixin):
         x = x.T
         #return said array
         return x
-        #raise NotImplementedError('Problem 4 incomplete')
         
 
     def predict_log(self, X):
@@ -246,7 +208,6 @@ class NaiveBayesFilter(ClassifierMixin):
                 label.append('spam')
         #return said list
         return label
-        #raise NotImplementedError('Problem 4 incomplete')
 
 
 class PoissonBayesFilter(ClassifierMixin):
@@ -347,7 +308,6 @@ class PoissonBayesFilter(ClassifierMixin):
         self.ham_rates = hf.T
         self.spam_rates = sf.T
         
-        #raise NotImplementedError('Problem 6 incomplete')
     
     def predict_proba(self, X):
         '''
@@ -416,7 +376,6 @@ class PoissonBayesFilter(ClassifierMixin):
                 
                 
         
-        #raise NotImplementedError('Problem 7 incomplete')
 
     def predict(self, X):
         '''
@@ -438,7 +397,6 @@ class PoissonBayesFilter(ClassifierMixin):
                 label.append('spam')
         #return said list
         return label
-        #raise NotImplementedError('Problem 7 incomplete')
 
 
 
@@ -471,7 +429,6 @@ def sklearn_method(X_train, y_train, X_test):
 
     
     
-    #raise NotImplementedError('Problem 8 incomplete')
     
 #test functions    
 def prob1234():
