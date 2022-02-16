@@ -1,54 +1,54 @@
 # ACME_Code
-###The code I worked on while in BYU's applied math program (ACME).
+### The code I worked on while in BYU's applied math program (ACME).
 
-####Monte Carlo:
+#### Monte Carlo:
 Fast integration methods for high dimensional problems
 
-####Newton: 
+#### Newton: 
 Simple root finder
 
-####Facial Recognition: 
+#### Facial Recognition: 
 Using eigenface algorithm to create a facial recognition program.
  
-####QR: 
+#### QR: 
 QR decomposition of a matrix
 
-####Image segmentation: 
+#### Image segmentation: 
 Isolating objects in an image
 
-####SQL: 
+#### SQL: 
 SQL basics
 
-####Regular Expressions: 
+#### Regular Expressions: 
 RegEx basics
 
-####Dynamic Programming: 
+#### Dynamic Programming: 
 Bottom up and top down methods for programming
 
-####Fourier: 
+#### Fourier: 
 Audio and image cleaning using the Fourier and inverse Fourier transform 
 
-####Wavelets:
+#### Wavelets:
 A variety of application of wavelets 
 
-####Gibbs: 
+#### Gibbs: 
 Using time series data to create groups of similar objects
 
-####Kmeans: 
+#### Kmeans: 
 Kmeans clustering algorithm
 
-####Naive: 
+#### Naive: 
 Gaussian Naive Bayes classification
 
-####Pandas: 
+#### Pandas: 
 Pandas Basics
 
-####BVP: 
+#### BVP: 
 Boundary Value Problems basics
 
-####IVP: 
+#### IVP: 
 Initial Value Problems basics
 
-####SIR: 
+#### SIR: 
 Modeling different SIR models for New York including covid spread. 
 
