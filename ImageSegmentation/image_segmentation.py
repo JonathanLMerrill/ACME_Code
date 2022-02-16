@@ -1,8 +1,6 @@
 # image_segmentation.py
-"""Volume 1: Image Segmentation.
-<Name>
-<Class>
-<Date>
+"""Image Segmentation.
+Jonathan Merrill
 """
 
 import numpy as np
@@ -13,7 +11,6 @@ from scipy import sparse as sp
 from scipy.sparse.linalg import eigsh
 
 
-# Problem 1
 def laplacian(A):
     """Compute the Laplacian matrix of the graph G that has adjacency matrix A.
 
@@ -23,24 +20,13 @@ def laplacian(A):
     Returns:
         L ((N,N) ndarray): The Laplacian matrix of G.
     """
-    D = np.zeros(A.shape)
+    D = np.zeros(A.shape)   #create a zeros matrix
     for i in range(len(A)):
-        B = A.sum(axis=1)
-        D[i][i] = B[i]
+        B = A.sum(axis=1)  #sum across the 1st axis of A
+        D[i][i] = B[i]   
     L = D - A
     return L
-# =============================================================================
-#     #raise NotImplementedError("Problem 1 Incomplete")
-# A = np.array([[0,1,0,0,1,1],
-#      [1,0,1,0,1,0],
-#      [0,1,0,1,0,0],
-#      [0,0,1,0,1,1],
-#      [1,1,0,1,0,0],
-#      [1,0,0,1,0,0]])
-# print(laplacian(A))
-# print(scipy.sparse.csgraph.laplacian(A))
-# =============================================================================
-# Problem 2
+
 def connectivity(A, tol=1e-8):
     """Compute the number of connected components in the graph G and its
     algebraic connectivity, given the adjacency matrix A of G.
@@ -56,28 +42,16 @@ def connectivity(A, tol=1e-8):
     """
     C = 0
     AC = []
-    L = laplacian(A)
-    E = scipy.linalg.eigvals(L)
+    L = laplacian(A)  #find the Laplacian of A
+    E = scipy.linalg.eigvals(L)  #find the eigenvalues
     for i in range(len(E)):
-        AC.append(np.real(E[i]))
+        AC.append(np.real(E[i]))  #add the real eigenvalues to a list
         if np.real(E[i]) < tol:
-            C += 1
+            C += 1  #count the number of connected components
     AC.sort()
     return C, AC[1]
 
-# =============================================================================
-# A = np.array([[0,1,0,0,1,1],
-#      [1,0,1,0,1,0],
-#      [0,1,0,1,0,0],
-#      [0,0,1,0,1,1],
-#      [1,1,0,1,0,0],
-#      [1,0,0,1,0,0]])
-# print(connectivity(A))
-# =============================================================================
-    #raise NotImplementedError("Problem 2 Incomplete")
 
-
-# Helper function for problem 4.
 def get_neighbors(index, radius, height, width):
     """Calculate the flattened indices of the pixels that are within the given
     distance of a central pixel, and their distances from the central pixel.
@@ -110,77 +84,71 @@ def get_neighbors(index, radius, height, width):
     return (X[mask] + Y[mask]*width).astype(np.int), R[mask]
 
 
-# Problems 3-6
 class ImageSegmenter:
     """Class for storing and segmenting images."""
 
-    # Problem 3
     def __init__(self, filename):
         """Read the image file. Store its brightness values as a flat array."""
         image = imread(filename)
-        scaled = image/255
+        scaled = image/255  #scale the image
         self.scaled = scaled
-        if self.scaled.ndim > 2:
+        if self.scaled.ndim > 2:  #scale the brightness if the dimensions are greater than 2
             brightness = self.scaled.mean(axis=2)
         else: 
             brightness = self.scaled
         D = np.ravel(brightness)
         self.D_array = D
     
-        #raise NotImplementedError("Problem 3 Incomplete")
     def y(self):
         print(self.scaled.shape[0:2])
-    # Problem 3
+        
     def show_original(self):
         """Display the original image."""
         if self.scaled.ndim > 2:
             plt.imshow(self.scaled)
         else:
             plt.imshow(self.scaled, cmap="gray")
-        #raise NotImplementedError("Problem 3 Incomplete")
 
-    # Problem 4
+            
     def adjacency(self, r=5., sigma_B2=.02, sigma_X2=3.):
         """Compute the Adjacency and Degree matrices for the image graph."""
         
         m,n = self.scaled.shape[0:2]
-        A = sp.lil_matrix((m*n,m*n))
+        A = sp.lil_matrix((m*n,m*n))  #construct a sparse matrix
         D = np.array([0.0 for i in range(m*n)])
         for i in range((m*n)):
-            J, X_norm = get_neighbors(i, r, m, n)
-            B_abs = np.abs(self.D_array[i] -self.D_array[J])
+            J, X_norm = get_neighbors(i, r, m, n)  #find the neighbors
+            B_abs = np.abs(self.D_array[i] -self.D_array[J])  #take the absolute value of the difference
             W = np.exp((-B_abs/sigma_B2)-(X_norm/sigma_X2))
             A[i,J] = W
             D[i] = np.sum(W)
-        A = sp.csc_matrix(A)
+        A = sp.csc_matrix(A)   #use those to find the sparse matrix
         return A,D
-        #raise NotImplementedError("Problem 4 Incomplete")
 
-    # Problem 5
+    
     def cut(self, A, D):
         """Compute the boolean mask that segments the image."""
         m,n = self.scaled.shape[0:2]
-        L = sp.csgraph.laplacian(A)
-        D_one_half = sp.diags(1/np.sqrt(D))
+        L = sp.csgraph.laplacian(A)   #find the Laplacian
+        D_one_half = sp.diags(1/np.sqrt(D))  #take one half of the D matrix and square root
         DLD = D_one_half@L@D_one_half
-        E_vecs = sp.linalg.eigsh(DLD, which = "SM", k=2)[1]
-        E_vecs = E_vecs[:,1].reshape((m,n))
-        mask = E_vecs > 0
+        E_vecs = sp.linalg.eigsh(DLD, which = "SM", k=2)[1]  #find the eigenvectors
+        E_vecs = E_vecs[:,1].reshape((m,n))   #reshape
+        mask = E_vecs > 0  #return the mask of the eigenvalues greater than 0
         return mask
         
-        #raise NotImplementedError("Problem 5 Incomplete")
 
-    # Problem 6
     def segment(self, r=5., sigma_B=.02, sigma_X=3.):
         """Display the original image and its segments."""
-        A, D = self.adjacency(r,sigma_B,sigma_X)
-        mask = self.cut(A,D)
+        A, D = self.adjacency(r,sigma_B,sigma_X)   #use the adjacency function to find Adjacency and Degree matricies
+        mask = self.cut(A,D) #find the mask with the cut function
         if self.scaled.ndim > 2:
-            mask = np.dstack((mask,mask,mask))
-        pos_mask = ~mask
+            mask = np.dstack((mask,mask,mask))  #stack the masks
+        pos_mask = ~mask   
         mask = self.scaled*mask
-        pos_mask = self.scaled*pos_mask
+        pos_mask = self.scaled*pos_mask  #find another mask
         
+        #plot the images
         A1 = plt.subplot(131)
         if self.scaled.ndim > 2:
             A1.imshow(self.scaled)
@@ -201,12 +169,3 @@ class ImageSegmenter:
         
         plt.show()
         
-        
-        #raise NotImplementedError("Problem 6 Incomplete")
-
-
-# if __name__ == '__main__':
-#     ImageSegmenter("dream_gray.png").segment()
-#     ImageSegmenter("dream.png").segment()
-#     ImageSegmenter("monument_gray.png").segment()
-#     ImageSegmenter("monument.png").segment()

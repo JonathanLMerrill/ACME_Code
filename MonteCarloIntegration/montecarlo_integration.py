@@ -1,15 +1,13 @@
 # montecarlo_integration.py
-"""Volume 1: Monte Carlo Integration.
-<Name>
-<Class>
-<Date>
+"""Monte Carlo Integration.
+Jonathan Merrill
 """
 
 import numpy as np
 import scipy.linalg as la
 from scipy import stats
 from matplotlib import pyplot as plt
-# Problem 1
+
 def ball_volume(n, N=10000):
     """Estimate the volume of the n-dimensional unit ball.
 
@@ -26,10 +24,8 @@ def ball_volume(n, N=10000):
     num_within = np.count_nonzero(lengths < 1)  #find the points that are within distance 1 of the origin 
     return 2**n*(num_within/N)
 
-    #raise NotImplementedError("Problem 1 Incomplete")
 
 
-# Problem 2
 def mc_integrate1d(f, a, b, N=10000):
     """Approximate the integral of f on the interval [a,b].
 
@@ -53,10 +49,8 @@ def mc_integrate1d(f, a, b, N=10000):
     for i in range(N):  #take f of each point
         x.append(f(points[i]))
     return (V/N)*np.sum(x)  #return the mean* the volume
-    #raise NotImplementedError("Problem 2 Incomplete")
 
 
-# Problem 3
 def mc_integrate(f, mins, maxs, N=10000):
     """Approximate the integral of f over the box defined by mins and maxs.
 
@@ -87,10 +81,8 @@ def mc_integrate(f, mins, maxs, N=10000):
         p.append(maxs[i] - mins[i])
     V = np.prod(p)  #find the volumes (which is the product of bi - ai)
     return (V/N)*np.sum(f(points))  #return the means*volume
-    #raise NotImplementedError("Problem 3 Incomplete")
 
 
-# Problem 4
 def prob4():
     """Let n=4 and Omega = [-3/2,3/4]x[0,1]x[0,1/2]x[0,1].
     - Define the joint distribution f of n standard normal random variables.
@@ -127,7 +119,6 @@ def prob4():
     plt.loglog(N,1/np.sqrt(N), label = "1/sqrt(N)")
     plt.title("Relative Error of Probability Density Function")
     plt.legend()
-    #raise NotImplementedError("Problem 4 Incomplete")
 
 
 def test2():

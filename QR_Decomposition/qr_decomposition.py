@@ -1,14 +1,11 @@
 # qr_decomposition.py
-"""Volume 1: The QR Decomposition.
-<Name>
-<Class>
-<Date>
+"""The QR Decomposition.
+Jonathan Merrill
 """
 import numpy as np
 import scipy
 from scipy import linalg as la
 
-# Problem 1
 def qr_gram_schmidt(A):
     """Compute the reduced QR decomposition of A via Modified Gram-Schmidt.
 
@@ -32,13 +29,6 @@ def qr_gram_schmidt(A):
     return Q,R
 
 
-        
-    
-    
-    #raise NotImplementedError("Problem 1 Incomplete")
-
-
-# Problem 2
 def abs_det(A):
     """Use the QR decomposition to efficiently compute the absolute value of
     the determinant of A.
@@ -52,10 +42,7 @@ def abs_det(A):
     Q,R = la.qr(A, mode = "economic")
     return abs(np.prod(np.diag(R)))
     
-    #raise NotImplementedError("Problem 2 Incomplete")
 
-
-# Problem 3
 def solve(A, b):
     """Use the QR decomposition to efficiently solve the system Ax = b.
 
@@ -69,11 +56,8 @@ def solve(A, b):
     Q,R = la.qr(A, mode = "economic")
     y = np.dot(np.transpose(Q),b)
     return la.solve(R,y)
-    
-    #raise NotImplementedError("Problem 3 Incomplete")
 
 
-# Problem 4
 def qr_householder(A):
     """Compute the full QR decomposition of A via Householder reflections.
 
@@ -97,10 +81,7 @@ def qr_householder(A):
         Q[k:,:] = Q[k:,:] - 2*np.outer(u, (np.dot(np.transpose(u),Q[k:,:])))
         return np.transpose(Q), R
     
-    #raise NotImplementedError("Problem 4 Incomplete")
 
-
-# Problem 5
 def hessenberg(A):
     """Compute the Hessenberg form H of A, along with the orthonormal matrix Q
     such that A = QHQ^T.
@@ -124,31 +105,25 @@ def hessenberg(A):
         H[:,k+1:] = H[:,k+1:] - 2*np.outer(np.dot(H[:,k+1:],u),np.transpose(u))
         Q[k+1:,:] = Q[k+1:,:] - 2*np.outer(u,(np.dot(np.transpose(u),Q[k+1:,:])))
     return H, np.transpose(Q) 
-    #raise NotImplementedError("Problem 5 Incomplete")
-# =============================================================================
-# 
-# A = np.random.random((6,4))
-# Q,R = qr_gram_schmidt(A)
-# print(qr_gram_schmidt(A))
-# print(la.qr(A, mode = "economic"))
-# print(A.shape,Q.shape,R.shape)
-# print(np.allclose(np.triu(R), R))
-# print(np.allclose(Q.T @ Q, np.identity(4)))
-# print(np.allclose(Q @ R, A))
-# 
-# 
-# =============================================================================
 
-# =============================================================================
-# A = np.random.random((5, 3))
-# Q,R = qr_householder(A) # Get the full QR decomposition.
-# print(A.shape, Q.shape, R.shape)
-# print(np.allclose(Q @ R, A))
-# =============================================================================
 
-# =============================================================================
-# A = np.random.random((8,8))
-# H, Q = hessenberg(A)
-# print(np.allclose(np.triu(H, -1), H))
-# print(np.allclose(Q @ H @ Q.T, A))
-# =============================================================================
+def test_function():
+    A = np.random.random((6,4))
+    Q,R = qr_gram_schmidt(A)
+    print(qr_gram_schmidt(A))
+    print(la.qr(A, mode = "economic"))
+    print(A.shape,Q.shape,R.shape)
+    print(np.allclose(np.triu(R), R))
+    print(np.allclose(Q.T @ Q, np.identity(4)))
+    print(np.allclose(Q @ R, A))
+
+
+    A = np.random.random((5, 3))
+    Q,R = qr_householder(A) # Get the full QR decomposition.
+    print(A.shape, Q.shape, R.shape)
+    print(np.allclose(Q @ R, A))
+
+    A = np.random.random((8,8))
+    H, Q = hessenberg(A)
+    print(np.allclose(np.triu(H, -1), H))
+    print(np.allclose(Q @ H @ Q.T, A))

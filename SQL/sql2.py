@@ -1,13 +1,11 @@
 # solutions.py
-"""Volume 3: SQL 2.
-<Name>
-<Class>
-<Date>
+"""SQL 2.
+Jonathan Merrill
 """
 import sqlite3 as sql
 import itertools
 
-# Problem 1
+
 def prob1(db_file="students.db"):
     """Query the database for the list of the names of students who have a
     'B' grade in any course. Return the list.
@@ -29,10 +27,8 @@ def prob1(db_file="students.db"):
         conn.close()
     #convert the tuple into a list
     return list(itertools.chain(*A))
-    #raise NotImplementedError("Problem 1 Incomplete")
 
 
-# Problem 2
 def prob2(db_file="students.db"):
     """Query the database for all tuples of the form (Name, MajorName, Grade)
     where 'Name' is a student's name and 'Grade' is their grade in Calculus.
@@ -55,10 +51,9 @@ def prob2(db_file="students.db"):
         conn.close()
     #convert and return it into a list
     return A
-    #raise NotImplementedError("Problem 2 Incomplete")
 
 
-# Problem 3
+
 def prob3(db_file="students.db"):
     """Query the database for the list of the names of courses that have at
     least 5 students enrolled in them.
@@ -79,10 +74,9 @@ def prob3(db_file="students.db"):
         conn.close()
     #convert and return the list (from a tuple)
     return list(itertools.chain(*A))
-    #raise NotImplementedError("Problem 3 Incomplete")
 
 
-# Problem 4
+
 def prob4(db_file="students.db"):
     """Query the given database for tuples of the form (MajorName, N) where N
     is the number of students in the specified major. Sort the results in
@@ -104,10 +98,8 @@ def prob4(db_file="students.db"):
         conn.close()
     #convert the tuple into a list and return 
     return A
-    #raise NotImplementedError("Problem 4 Incomplete")
 
 
-# Problem 5
 def prob5(db_file="students.db"):
     """Query the database for tuples of the form (StudentName, MajorName) where
     the last name of the specified student begins with the letter C.
@@ -128,10 +120,8 @@ def prob5(db_file="students.db"):
         conn.close()
     #convert from tuple to list and return 
     return A
-    #raise NotImplementedError("Problem 5 Incomplete")
 
 
-# Problem 6
 def prob6(db_file="students.db"):
     """Query the database for tuples of the form (StudentName, N, GPA) where N
     is the number of courses that the specified student is in and 'GPA' is the
@@ -178,6 +168,5 @@ def prob6(db_file="students.db"):
         conn.close()
     return A  #return the list of tuples
             
-    #raise NotImplementedError("Problem 6 Incomplete")
 
 

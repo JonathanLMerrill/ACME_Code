@@ -1,8 +1,6 @@
 # newtons_method.py
-"""Volume 1: Newton's Method.
-<Name>
-<Class>
-<Date>
+"""Newton's Method.
+Jonathan Merrill
 """
 
 import sympy as sy
@@ -11,7 +9,6 @@ import matplotlib.pyplot as plt
 import numpy.linalg as la
 from autograd import jacobian
 
-# Problems 1, 3, and 5
 def newton(f, x0, Df, tol=1e-5, maxiter=20, alpha=1.):
     """Use Newton's method to approximate a zero of the function f.
 
@@ -31,7 +28,7 @@ def newton(f, x0, Df, tol=1e-5, maxiter=20, alpha=1.):
     """
     i = 0
     if np.isscalar(x0) == True:
-        x = x0 - alpha*(f(x0)/Df(x0))  #implement function 9.4 (backtracking) with the alpha variable so that we can take fractions of steps to hit every point
+        x = x0 - alpha*(f(x0)/Df(x0))  #implement backtracking function with the alpha variable so that we can take fractions of steps to hit every point
         converge = False  #set the converge variable to false initially
         while i < maxiter and abs(x-x0) >= tol:  #run through the loop until the number of iterations is fun or the level of tolerence we desire is reached
             x0 = x   #update x0
@@ -51,17 +48,8 @@ def newton(f, x0, Df, tol=1e-5, maxiter=20, alpha=1.):
         if i < maxiter:
             converge = True
         return x, converge, i
-        
-    #raise NotImplementedError("Problem 1 Incomplete")
-# =============================================================================
-# f = lambda x: x**2 - 3
-# df = lambda x: 2*x
-# x0 = 16
-# print(newton(f,x0,df))
-# print(np.sqrt(3))
-# =============================================================================
+    
 
-# Problem 2
 def prob2(N1, N2, P1, P2):
     """Use Newton's method to solve for the constant r that satisfies
 
@@ -85,12 +73,9 @@ def prob2(N1, N2, P1, P2):
     df = sy.diff(f,r)     #take the derivative
     df = sy.lambdify(r,df)     #lambdify  f and df
     f = sy.lambdify(r,f)       
-    return newton(f,.1, df)[0]   #use function from prob 1 to return the apporximate zeros of the function with initial starting point of .1
+    return newton(f,.1, df)[0]   #use function from newtons to return the apporximate zeros of the function with initial starting point of .1
     
-    #raise NotImplementedError("Problem 2 Incomplete")
 
-
-# Problem 4
 def optimal_alpha(f, x0, Df, tol=1e-5, maxiter=15):
     """Run Newton's method for various values of alpha in (0,1].
     Plot the alpha value against the number of iterations until convergence.
@@ -117,17 +102,7 @@ def optimal_alpha(f, x0, Df, tol=1e-5, maxiter=15):
     plt.show()
     return a[np.argmin(iterations)]  #return the lowest number of iterations
     
-    #raise NotImplementedError("Problem 4 Incomplete")
-# =============================================================================
-# x = sy.symbols('x')
-# f = lambda x: np.sign(x) * np.power(np.abs(x), 1./3)
-# df = lambda x: np.sign(x) * (1./3.) * np.power(np.abs(x), -2./3.)
-# x0 = .01
-# print(optimal_alpha(f, x0, df))
-# =============================================================================
 
-
-# Problem 6
 def prob6():
     """Consider the following Bioremediation system.
 
@@ -155,10 +130,7 @@ def prob6():
             if (np.allclose(newton(f,x0,J,alpha = alpha[0])[0],np.array([0,1])) or np.allclose(newton(f,x0,J,alpha = alpha[0])[0],np.array([1,0]))) and np.allclose(newton(f,x0,J,alpha = alpha[1])[0],np.array([3.75,.25])):
                 return x0
     
-    #raise NotImplementedError("Problem 6 Incomplete")
-
-
-# Problem 7
+    
 def plot_basins(f, Df, zeros, domain, res=1000, iters=15):
     """Plot the basins of attraction of f on the complex plane.
 

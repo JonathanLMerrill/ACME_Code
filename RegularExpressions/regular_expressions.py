@@ -1,13 +1,12 @@
 # regular_expressions.py
-"""Volume 3: Regular Expressions.
-<Name>
-<Class>
-<Date>
+"""Regular Expressions Package
+Jonathan Merrill
 """
 
 import re
 from collections import defaultdict as dd
-# Problem 1
+
+
 def prob1():
     """Compile and return a regular expression pattern object with the
     pattern string "python".
@@ -16,9 +15,8 @@ def prob1():
         (_sre.SRE_Pattern): a compiled regular expression pattern object.
     """
     return re.compile("python")
-    #raise NotImplementedError("Problem 1 Incomplete")
 
-# Problem 2
+
 def prob2():
     """Compile and return a regular expression pattern object that matches
     the string "^{@}(?)[%]{.}(*)[_]{&}$".
@@ -27,9 +25,8 @@ def prob2():
         (_sre.SRE_Pattern): a compiled regular expression pattern object.
     """
     return re.compile(r"\^\{@\}\(\?\)\[%\]\{\.\}\(\*\)\[_\]\{&\}\$")
-    #raise NotImplementedError("Problem 2 Incomplete")
 
-# Problem 3
+
 def prob3():
     """Compile and return a regular expression pattern object that matches
     the following strings (and no other strings).
@@ -41,9 +38,9 @@ def prob3():
         (_sre.SRE_Pattern): a compiled regular expression pattern object.
     """
     return re.compile(r"^(Book|Mattress|Grocery) (store|supplier)$")
-    #raise NotImplementedError("Problem 3 Incomplete")
 
-# Problem 4
+
+
 def prob4():
     """Compile and return a regular expression pattern object that matches
     any valid Python identifier.
@@ -51,13 +48,10 @@ def prob4():
     Returns:
         (_sre.SRE_Pattern): a compiled regular expression pattern object.
     """
-    #(=\s*(\d*|'^'*'|[(\w|_)]*))$"
-    #(=\s*(\d*\.?\d\|'^'*'|[(\w|_)]*))
     return  re.compile(r"^[a-zA-Z|_][\w|_]*\s*(=\s*(\d*\.?\d*|'[^']*'|[a-zA-Z|_][\w|_]*))?$")
                        
-    #raise NotImplementedError("Problem 4 Incomplete")
+    
 
-# Problem 5
 def prob5(code):
     """Use regular expressions to place colons in the appropriate spots of the
     input string, representing Python code. You may assume that every possible
@@ -78,9 +72,8 @@ def prob5(code):
                 lines[i] += ":"
     return '\n'.join(lines)  #return the lines put back together
          
-    #raise NotImplementedError("Problem 5 Incomplete")
 
-# Problem 6
+    
 def prob6(filename="fake_contacts.txt"):
     """Use regular expressions to parse the data in the given file and format
     it uniformly, writing birthdays as mm/dd/yyyy and phone numbers as
@@ -156,7 +149,7 @@ def prob6(filename="fake_contacts.txt"):
         dict1[name]["phone"] = phon
     return dict1     #return the dictionary
 
-
+#test functions
 def test2():
     A = prob2()
     print(bool(A.search("^{@}(?)[%]{.}(*)[_]{&}$")))

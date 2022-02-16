@@ -1,18 +1,16 @@
 # sql1.py
-"""Volume 3: SQL 1 (Introduction).
-<Name>
-<Class>
-<Date>
+"""SQL Introduction
+Jonathan Merrill
 """
 import sqlite3 as sql
 import csv
 from matplotlib import pyplot as plt
 import numpy as np
 
-# Problems 1, 2, and 4
+
 def student_db(db_file="students.db", student_info="student_info.csv",
                                       student_grades="student_grades.csv"):
-    """Connect to the database db_file (or create it if it doesn’t exist).
+    """Connect to the database db_file.
     Drop the tables MajorInfo, CourseInfo, StudentInfo, and StudentGrades from
     the database (if they exist). Recreate the following (empty) tables in the
     database with the specified columns.
@@ -45,7 +43,6 @@ def student_db(db_file="students.db", student_info="student_info.csv",
         student_grades (str): The name of a csv file containing data for the
             StudentGrades table.
     """
-    #problem 1
     try:
         with sql.connect(db_file) as conn:
             cur = conn.cursor()
@@ -62,7 +59,6 @@ def student_db(db_file="students.db", student_info="student_info.csv",
     finally:
         conn.close()
     
-    #problem 2
     try:
         with sql.connect(db_file) as conn:
             cur = conn.cursor()
@@ -83,7 +79,6 @@ def student_db(db_file="students.db", student_info="student_info.csv",
     finally: 
         conn.close()
         
-    #problem 4
     try: 
         with sql.connect(db_file) as conn:
             cur = conn.cursor()
@@ -91,10 +86,8 @@ def student_db(db_file="students.db", student_info="student_info.csv",
             cur.execute("UPDATE StudentInfo SET MajorID = NULL WHERE MajorID == -1")
     finally:
         conn.close()
-    #raise NotImplementedError("Problem 1 Incomplete")
 
-
-# Problems 3 and 4
+        
 def earthquakes_db(db_file="earthquakes.db", data_file="us_earthquakes.csv"):
     """Connect to the database db_file (or create it if it doesn’t exist).
     Drop the USEarthquakes table if it already exists, then create a new
@@ -111,7 +104,6 @@ def earthquakes_db(db_file="earthquakes.db", data_file="us_earthquakes.csv"):
         data_file (str): The name of a csv file containing data for the
             USEarthquakes table.
     """
-    #problem 3
     try: 
         with sql.connect(db_file) as conn:
             cur = conn.cursor()
@@ -125,7 +117,6 @@ def earthquakes_db(db_file="earthquakes.db", data_file="us_earthquakes.csv"):
                 cur.executemany("INSERT INTO USEarthquakes VALUES(?,?,?,?,?,?,?,?,?)",rows)
     finally:
         conn.close()
-   #problem 4
     try:
         with sql.connect(db_file) as conn:
             cur = conn.cursor()
@@ -138,7 +129,6 @@ def earthquakes_db(db_file="earthquakes.db", data_file="us_earthquakes.csv"):
             cur.execute("UPDATE USEarthquakes SET Second = NULL WHERE Second == 0")
     finally:
          conn.close()
-    #raise NotImplementedError("Problem 3 Incomplete")
 
 
 # Problem 5
@@ -164,10 +154,8 @@ def prob5(db_file="students.db"):
     finally:
         conn.close()
     return A
-    #raise NotImplementedError("Problem 5 Incomplete")
 
 
-# Problem 6
 def prob6(db_file="earthquakes.db"):
     """Create a single figure with two subplots: a histogram of the magnitudes
     of the earthquakes from 1800-1900, and a histogram of the magnitudes of the
@@ -210,40 +198,40 @@ def prob6(db_file="earthquakes.db"):
     return average[0][0]
     #raise NotImplementedError("Problem 6 Incomplete")
 
+    
+    
+#test functions
+def test1():
+    student_db()
+    with sql.connect("students.db") as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM StudentInfo;")
+        print([d[0] for d in cur.description])
 
-# =============================================================================
-# def test1():
-#     student_db()
-#     with sql.connect("students.db") as conn:
-#         cur = conn.cursor()
-#         cur.execute("SELECT * FROM StudentInfo;")
-#         print([d[0] for d in cur.description])
-# 
-# def test2():
-#     student_db()
-#     with sql.connect("students.db") as conn:
-#         cur = conn.cursor()
-#         for row in cur.execute("SELECT * FROM MajorInfo;"):
-#             print(row)
-#     with sql.connect("students.db") as conn:
-#         cur = conn.cursor()
-#         for row in cur.execute("SELECT * FROM CourseInfo;"):
-#             print(row)
-#     with sql.connect("students.db") as conn:
-#         cur = conn.cursor()
-#         for row in cur.execute("SELECT * FROM StudentInfo;"):
-#             print(row)
-#     with sql.connect("students.db") as conn:
-#         cur = conn.cursor()
-#         for row in cur.execute("SELECT * FROM StudentGrades;"):
-#             print(row)
-#             
-# def test3():
-#     earthquakes_db()
-#     with sql.connect("earthquakes.db") as conn:
-#         cur = conn.cursor()
-#         for row in cur.execute("SELECT * FROM USEarthquakes;"):
-#             print(row)         
-#             
-#             
-# =============================================================================
+def test2():
+    student_db()
+    with sql.connect("students.db") as conn:
+        cur = conn.cursor()
+        for row in cur.execute("SELECT * FROM MajorInfo;"):
+            print(row)
+    with sql.connect("students.db") as conn:
+        cur = conn.cursor()
+        for row in cur.execute("SELECT * FROM CourseInfo;"):
+            print(row)
+    with sql.connect("students.db") as conn:
+        cur = conn.cursor()
+        for row in cur.execute("SELECT * FROM StudentInfo;"):
+            print(row)
+    with sql.connect("students.db") as conn:
+        cur = conn.cursor()
+        for row in cur.execute("SELECT * FROM StudentGrades;"):
+            print(row)
+            
+def test3():
+    earthquakes_db()
+    with sql.connect("earthquakes.db") as conn:
+        cur = conn.cursor()
+        for row in cur.execute("SELECT * FROM USEarthquakes;"):
+            print(row)         
+            
+
